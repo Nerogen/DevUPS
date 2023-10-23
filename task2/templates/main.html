@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>API Documentation</title>
+    <!-- Include Bootstrap or other CSS libraries for styling -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/highlight.min.js"></script>
+</head>
+<style>
+    body {
+    background-color: #1A1919; /* Set the background color to dark */
+    color: #fff; /* Set text color to white */
+}
+.container {
+    background-color: #2A2A2A; /* Set container background color to slightly lighter */
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 20px;
+}
+.json-block {
+    background-color: #000; /* Set JSON block background color to black */
+    display: inline-block;
+    margin-right: 20px;
+    padding: 15px;
+    border-radius: 5px;
+}
+.red-text {
+    color: #F64A60; /* Define the text color as red */
+}
+
+.code-container {
+    background-color: #000000; /* Dark background color */
+    border-radius: 0.375rem; /* Rounded corners */
+    margin-bottom: 1rem;
+    color: #cfcfcf; /* Text color */
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    background-color: #333; /* Header background color */
+    padding: 0.5rem 1rem;
+    font-size: 0.75rem; /* Header font size */
+    border-top-left-radius: 0.375rem;
+    border-top-right-radius: 0.375rem;
+}
+
+.language {
+    margin-right: 0.5rem;
+}
+
+.copy-button {
+    background-color: #007bff; /* Button background color */
+    color: #fff; /* Button text color */
+    border: 2px solid #1A1919; /* Use your preferred color code */
+    border-radius: 10px; /* Optional, adds rounded corners */
+    padding: 0.25rem 0.5rem;
+    cursor: pointer;
+}
+
+.code {
+    padding: 1rem;
+    font-family: 'Courier New', monospace;
+    white-space: pre;
+}
+</style>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="">Welcome to my API service!</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="container">
+            <h1>API Documentation</h1>
+
+            <!-- Link to GitHub Repository -->
+            <p><a href="https://github.com/Nerogen/DevUPS.git" class="btn btn-primary btn-large">View On GitHub</a></p>
+
+            <!-- API Usage Information -->
+            <h2>API Usage</h2>
+            <p>Here's how to use this API:</p>
+            <ul>
+                <li>Make a GET request to retrieve data: <a href="/api/resource/" target="_blank">/api/resource/</a></li>
+                <li>Make a POST request to create record: <a href="/api/resource/" target="_blank">/api/resource/</a></li>
+                <li>Make a PUT request to update record: <a href="/api/resource/?resource_id={resource_id}" target="_blank">/api/resource/?resource_id={resource_id}</a></li>
+                <li>Make a DELETE request to delete record: <a href="/api/resource/?resource_id={resource_id}" target="_blank">/api/resource/?resource_id={resource_id}</a></li>
+                <!-- Add more instructions for your specific API endpoints -->
+            </ul>
+            <h2>Example of a POST request in Python</h2>
+
+            <div class="code-container">
+        <div class="header">
+            <span class="language">Python</span>
+            <button id="copyButton" class="copy-button">
+                Copy code
+            </button>
+        </div>
+
+        <div class="code-container">
+<pre><code class="python" id="codeToCopy">
+import requests  # Import the requests library to make HTTP requests
+
+# Define data to be used in the POST request
+data = {
+    "key1": "value1",
+    "key2": "value2"
+}
+
+# Send a POST request to create a new resource
+response = requests.post("http://localhost:5000/api/resource/", json=data)
+print(response.json())  # Print the JSON response from the server
+
+# Extract the 'id' from the POST response for later use
+resource_id = response.json().get("id")
+
+# Send a GET request to retrieve a list of resources
+response = requests.get("http://localhost:5000/api/resource/")
+print(response.json())  # Print the JSON response from the server
+
+# Define data to be used in the PUT request to update the resource
+data = {
+    "key1": "new_value1",
+    "key2": "new_value2"
+}
+
+# Send a PUT request to update an existing resource using the resource_id
+response = requests.put(f"http://localhost:5000/api/resource/?resource_id={resource_id}", json=data)
+print(response.json())  # Print the JSON response from the server
+
+# Send a DELETE request to delete the resource with the specified resource_id
+response = requests.delete(f"http://localhost:5000/api/resource/?resource_id={resource_id}")
+print(response.json())  # Print the JSON response from the server
+</code></pre>
+            </div>
+    <script>
+        hljs.highlightAll(); // Apply syntax highlighting to all code blocks
+    </script>
+<script>
+       // Get a reference to the copy button and the code element
+const copyButton = document.getElementById('copyButton');
+const codeToCopy = document.getElementById('codeToCopy');
+
+// Add a click event listener to the copy button
+copyButton.addEventListener('click', function () {
+    // Create a range and select the text within the code element
+    const range = document.createRange();
+    range.selectNode(codeToCopy);
+    window.getSelection().removeAllRanges();
+    window.getSelection().addRange(range);
+
+    // Copy the selected text to the clipboard
+    document.execCommand('copy');
+
+    // Deselect the text
+    window.getSelection().removeAllRanges();
+
+    // Notify the user that the code has been copied
+    alert('Code has been copied to the clipboard');
+});
+    </script>
+    </div>
+
+            <!-- Examples of JSON Responses -->
+            <h2>Examples of JSON Responses</h2>
+            <p>Sample JSON response from API:</p>
+            <div class="code-container">
+            <pre><code class="python">
+{'id': '6536c430e21496cbcdb2fdaf', 'message': 'Resource created'}
+[{'_id': ObjectId('6536c430e21496cbcdb2fdaf'), 'key1': 'value1', 'key2': 'value2'}]
+{'message': 'Resource updated'}
+{'message': 'Resource deleted'}
+                </code></pre>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 API Documentation. All rights reserved.</p>
+        </div>
+    </footer>
+
+
+</body>
+</html>
